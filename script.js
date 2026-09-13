@@ -673,7 +673,8 @@
 
 		// X and Y wipes, like a media server's moving test lines: same raster speed on both axes
 		if (!reduced()) {
-			var t = performance.now() / 1000;
+			// wall-clock time, so the wipes carry on from where they were instead of restarting on refresh
+			var t = Date.now() / 1000;
 			// 8s and 4.5s per raster width/height, stretched to cover the extra run-out
 			var run = 1 + WIPE_BAND;
 			wipe((t % (8 * run)) / 8, 'x', palette.accent, palette.accent, .2);
