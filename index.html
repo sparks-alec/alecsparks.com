@@ -26,12 +26,20 @@
 		<section class="section-about" id="about-panel">
 			<div class="stage-col">
 				<div class="gfx">
-					<div class="warp" role="group" aria-label="Projection corner-pin toy">
+					<div class="warp" role="group" aria-label="Projection Bezier warp toy">
 						<canvas class="warp-canvas" aria-hidden="true"></canvas>
-						<button type="button" class="warp-handle" aria-label="Corner 1, top left"></button>
-						<button type="button" class="warp-handle" aria-label="Corner 2, top right"></button>
-						<button type="button" class="warp-handle" aria-label="Corner 3, bottom right"></button>
-						<button type="button" class="warp-handle" aria-label="Corner 4, bottom left"></button>
+						<button type="button" class="warp-handle" data-corner="0" aria-label="Corner 1, top left"></button>
+						<button type="button" class="warp-handle" data-corner="1" aria-label="Corner 2, top right"></button>
+						<button type="button" class="warp-handle" data-corner="2" aria-label="Corner 3, bottom right"></button>
+						<button type="button" class="warp-handle" data-corner="3" aria-label="Corner 4, bottom left"></button>
+						<button type="button" class="warp-handle warp-tangent" data-edge="top" data-index="0" aria-label="Top edge curve, near corner 1"></button>
+						<button type="button" class="warp-handle warp-tangent" data-edge="top" data-index="1" aria-label="Top edge curve, near corner 2"></button>
+						<button type="button" class="warp-handle warp-tangent" data-edge="right" data-index="0" aria-label="Right edge curve, near corner 2"></button>
+						<button type="button" class="warp-handle warp-tangent" data-edge="right" data-index="1" aria-label="Right edge curve, near corner 3"></button>
+						<button type="button" class="warp-handle warp-tangent" data-edge="bottom" data-index="1" aria-label="Bottom edge curve, near corner 3"></button>
+						<button type="button" class="warp-handle warp-tangent" data-edge="bottom" data-index="0" aria-label="Bottom edge curve, near corner 4"></button>
+						<button type="button" class="warp-handle warp-tangent" data-edge="left" data-index="1" aria-label="Left edge curve, near corner 4"></button>
+						<button type="button" class="warp-handle warp-tangent" data-edge="left" data-index="0" aria-label="Left edge curve, near corner 1"></button>
 					</div>
 				</div>
 			</div>

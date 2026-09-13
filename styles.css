@@ -215,6 +215,27 @@ a:focus-visible, button:focus-visible {
 	outline: 2px solid var(--ink);
 	outline-offset: -8px;
 }
+.warp-handle { z-index: 2; }
+/* tangent handle: a small solid dot that bends an edge; sits under the corner rings */
+.warp-tangent {
+	z-index: 1;
+	width: 32px;
+	height: 32px;
+	margin: -16px 0 0 -16px;
+}
+.warp-tangent::before {
+	width: 10px;
+	height: 10px;
+	border: 0;
+	background: var(--accent);
+	box-shadow: 0 0 0 1.5px var(--page-bg), 0 0 0 2.5px var(--ring-halo);
+}
+.warp-tangent::after { display: none; }
+.warp-tangent.is-dragging::before {
+	transform: scale(1.4);
+	background: var(--accent);
+}
+.warp-tangent:focus-visible { outline-offset: -4px; }
 
 /* INDEX */
 .section-index {

@@ -279,7 +279,7 @@
 		}
 	});
 
-	/* CORNER PIN: drag four handles to warp the test pattern */
+	/* BEZIER WARP: drag corner rings and tangent handles to bend the test pattern */
 	var warp = document.querySelector('.warp');
 	if (!warp) return;
 
@@ -403,13 +403,13 @@
 		var dx1 = d1[0] - d0[0], dy1 = d1[1] - d0[1], dx2 = d2[0] - d0[0], dy2 = d2[1] - d0[1];
 		var a = (dx1 * sy2 - dx2 * sy1) / det, c = (dx2 * sx1 - dx1 * sx2) / det;
 		var b = (dy1 * sy2 - dy2 * sy1) / det, d = (dy2 * sx1 - dy1 * sx2) / det;
-		// grow the clip a hair so neighbouring triangles meet without hairline seams
+		// grow the clip a device pixel so neighbouring triangles overlap instead of leaving hairline seams
 		var cx = (d0[0] + d1[0] + d2[0]) / 3, cy = (d0[1] + d1[1] + d2[1]) / 3;
 		lc.save();
 		lc.beginPath();
 		[d0, d1, d2].forEach(function (p, i) {
 			var len = Math.hypot(p[0] - cx, p[1] - cy) || 1;
-			var gx = p[0] + (p[0] - cx) / len * .5, gy = p[1] + (p[1] - cy) / len * .5;
+			var gx = p[0] + (p[0] - cx) / len, gy = p[1] + (p[1] - cy) / len;
 			if (i) lc.lineTo(gx, gy); else lc.moveTo(gx, gy);
 		});
 		lc.closePath();
@@ -421,50 +421,102 @@
 		lc.restore();
 	}
 
-	// normalized [x, y] within the wall, clockwise from top left
-	// a fresh warp: jitter each corner of a centered rectangle, keeping only shapes the drag rules allow;
-	// when `from` is given, prefer shapes that land noticeably far from it so the change reads
+	// the shape, normalized to the wall: four corners clockwise from top left, plus each edge's two
+	// Bezier tangent handles (the edge's inner control points), like After Effects' Bezier Warp
+	var EDGES = [['top', 0, 1], ['right', 1, 2], ['bottom', 3, 2], ['left', 0, 3]];
+	// the tangent handles that belong to each corner, so they travel with it
+	var OWNED = [
+		[['top', 0], ['left', 0]],
+		[['top', 1], ['right', 0]],
+		[['right', 1], ['bottom', 1]],
+		[['left', 1], ['bottom', 0]]
+	];
+
+	function straightHandles(c) {
+		var h = {};
+		EDGES.forEach(function (e) {
+			var a = c[e[1]], b = c[e[2]];
+			h[e[0]] = [
+				[a[0] + (b[0] - a[0]) / 3, a[1] + (b[1] - a[1]) / 3],
+				[a[0] + (b[0] - a[0]) * 2 / 3, a[1] + (b[1] - a[1]) * 2 / 3]
+			];
+		});
+		return h;
+	}
+
+	function copyShape(s) {
+		var h = {};
+		Object.keys(s.h).forEach(function (k) { h[k] = s.h[k].map(function (p) { return p.slice(); }); });
+		return { c: s.c.map(function (p) { return p.slice(); }), h: h };
+	}
+
+	function lerpShape(a, b, k) {
+		function mix(p, q) { return [p[0] + (q[0] - p[0]) * k, p[1] + (q[1] - p[1]) * k]; }
+		var h = {};
+		Object.keys(a.h).forEach(function (e) { h[e] = [mix(a.h[e][0], b.h[e][0]), mix(a.h[e][1], b.h[e][1])]; });
+		return { c: a.c.map(function (p, i) { return mix(p, b.c[i]); }), h: h };
+	}
+
+	// every control point in a fixed order, for measuring how far a new shape moved
+	function shapePoints(s) {
+		var list = s.c.slice();
+		EDGES.forEach(function (e) { list.push(s.h[e[0]][0], s.h[e[0]][1]); });
+		return list;
+	}
+
+	// a fresh warp: jitter a centered rectangle's corners (kept convex), then bow each edge by pushing its
+	// handles off the straight line; when `from` is given, prefer shapes that land noticeably far from it
 	function randomShape(from) {
 		var base = [[.14, .14], [.86, .14], [.86, .86], [.14, .86]];
 		var fallback = null;
 		for (var attempt = 0; attempt < 40; attempt++) {
-			var shape = base.map(function (c) {
+			var corners = base.map(function (c) {
 				return [clamp(c[0] + (Math.random() * 2 - 1) * .11, .02, .98), clamp(c[1] + (Math.random() * 2 - 1) * .11, .02, .98)];
 			});
-			if (!isConvex(shape)) continue;
-			if (!from) return shape;
-			var moved = shape.reduce(function (sum, c, i) { return sum + Math.hypot(c[0] - from[i][0], c[1] - from[i][1]); }, 0);
-			if (moved > .25) return shape;
-			fallback = fallback || shape;
+			if (!isConvex(corners)) continue;
+			var next = { c: corners, h: straightHandles(corners) };
+			EDGES.forEach(function (e) {
+				var a = corners[e[1]], b = corners[e[2]];
+				var dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy) || 1;
+				next.h[e[0]].forEach(function (p) {
+					var bend = (Math.random() * 2 - 1) * .08;
+					p[0] = clamp(p[0] - dy / len * bend, .01, .99);
+					p[1] = clamp(p[1] + dx / len * bend, .01, .99);
+				});
+			});
+			if (!from) return next;
+			var pa = shapePoints(next), pb = shapePoints(from);
+			var moved = pa.reduce(function (sum, p, i) { return sum + Math.hypot(p[0] - pb[i][0], p[1] - pb[i][1]); }, 0);
+			if (moved > .5) return next;
+			fallback = fallback || next;
 		}
-		return fallback || [[.135, .19], [.885, .13], [.845, .87], [.115, .79]];
+		var safe = [[.135, .19], [.885, .13], [.845, .87], [.115, .79]];
+		return fallback || { c: safe, h: straightHandles(safe) };
 	}
-	var START = randomShape();
-	var corners = copy(START);
+	var shape = randomShape();
 	var dragging = false;
 	var tween = 0;
 
-	function copy(points) {
-		return points.map(function (c) { return c.slice(); });
+	function bez(p0, p1, p2, p3, t) {
+		var s = 1 - t, a = s * s * s, b = 3 * s * s * t, c = 3 * s * t * t, d = t * t * t;
+		return [a * p0[0] + b * p1[0] + c * p2[0] + d * p3[0], a * p0[1] + b * p1[1] + c * p2[1] + d * p3[1]];
 	}
 
-	// projective map from the unit square onto a quad (Heckbert, "Fundamentals of Texture Mapping")
-	function squareToQuad(p) {
-		var x0 = p[0][0], y0 = p[0][1], x1 = p[1][0], y1 = p[1][1];
-		var x2 = p[2][0], y2 = p[2][1], x3 = p[3][0], y3 = p[3][1];
-		var dx1 = x1 - x2, dx2 = x3 - x2, sx = x0 - x1 + x2 - x3;
-		var dy1 = y1 - y2, dy2 = y3 - y2, sy = y0 - y1 + y2 - y3;
-		var den = dx1 * dy2 - dx2 * dy1;
-		var g = (sx * dy2 - dx2 * sy) / den;
-		var h = (dx1 * sy - sx * dy1) / den;
-		return {
-			a: x1 - x0 + g * x1, b: x3 - x0 + h * x3, c: x0,
-			d: y1 - y0 + g * y1, e: y3 - y0 + h * y3, f: y0,
-			g: g, h: h
-		};
+	// a Coons patch: the surface blends between its four Bezier edges
+	function surfacePoint(s, u, v, w, hgt) {
+		var c = s.c, h = s.h;
+		var top = bez(c[0], h.top[0], h.top[1], c[1], u);
+		var bottom = bez(c[3], h.bottom[0], h.bottom[1], c[2], u);
+		var left = bez(c[0], h.left[0], h.left[1], c[3], v);
+		var right = bez(c[1], h.right[0], h.right[1], c[2], v);
+		var x = (1 - v) * top[0] + v * bottom[0] + (1 - u) * left[0] + u * right[0]
+			- ((1 - u) * (1 - v) * c[0][0] + u * (1 - v) * c[1][0] + (1 - u) * v * c[3][0] + u * v * c[2][0]);
+		var y = (1 - v) * top[1] + v * bottom[1] + (1 - u) * left[1] + u * right[1]
+			- ((1 - u) * (1 - v) * c[0][1] + u * (1 - v) * c[1][1] + (1 - u) * v * c[3][1] + u * v * c[2][1]);
+		return [x * w, y * hgt];
 	}
 
-	// a crossed, folded or collapsed quad can't be drawn as a projection, so refuse moves that make one
+	// a crossed, folded or collapsed set of corners can't make a sensible surface, so refuse moves that make one
 	function isConvex(p) {
 		var sign = 0;
 		for (var i = 0; i < 4; i++) {
@@ -481,8 +533,8 @@
 		return true;
 	}
 
-	// Drawn on canvas rather than with a CSS matrix3d so the warp never depends on
-	// 3D compositing. Projection keeps straight lines straight, so the grid is exact.
+	// Drawn on canvas rather than with CSS so the warp never depends on 3D compositing.
+	// Straight lines in the raster become curves on the surface, so everything is traced with samples.
 	function render() {
 		var w = warp.clientWidth, hgt = warp.clientHeight;
 		if (!w || !hgt) return;
@@ -492,39 +544,34 @@
 			canvas.height = Math.round(hgt * dpr);
 		}
 
-		var px = corners.map(function (c) { return [c[0] * w, c[1] * hgt]; });
-		var m = squareToQuad(px);
-		function project(u, v) {
-			var z = m.g * u + m.h * v + 1;
-			return [(m.a * u + m.b * v + m.c) / z, (m.d * u + m.e * v + m.f) / z];
+		function project(u, v) { return surfacePoint(shape, u, v, w, hgt); }
+		function trace(u0, v0, u1, v1, n, cont) {
+			for (var i = 0; i <= n; i++) {
+				var p = project(u0 + (u1 - u0) * i / n, v0 + (v1 - v0) * i / n);
+				if (i === 0 && !cont) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]);
+			}
 		}
 		function line(u0, v0, u1, v1) {
-			var p = project(u0, v0), q = project(u1, v1);
-			ctx.moveTo(p[0], p[1]);
-			ctx.lineTo(q[0], q[1]);
+			trace(u0, v0, u1, v1, Math.max(2, Math.ceil(Math.max(Math.abs(u1 - u0), Math.abs(v1 - v0)) * 40)));
 		}
-		function outline() {
+		function region(u0, v0, u1, v1, n) {
 			ctx.beginPath();
-			px.forEach(function (p, i) { if (i) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]); });
+			trace(u0, v0, u1, v0, n);
+			trace(u1, v0, u1, v1, n, true);
+			trace(u1, v1, u0, v1, n, true);
+			trace(u0, v1, u0, v0, n, true);
 			ctx.closePath();
 		}
+		function outline() { region(0, 0, 1, 1, 48); }
 		var WIPE_BAND = .08;
 		// a bar trailing a leading line at s along one axis; s runs past 1 so the bar slides
-		// fully off instead of vanishing, and the quad clips it rather than the math shrinking it
+		// fully off instead of vanishing, and the surface outline clips it
 		function wipe(s, axis, bandColor, lineColor, bandAlpha) {
 			var head = Math.min(s, 1), tail = s - WIPE_BAND;
-			var band = axis === 'x'
-				? [[tail, 0], [head, 0], [head, 1], [tail, 1]]
-				: [[0, tail], [1, tail], [1, head], [0, head]];
 			ctx.save();
 			outline();
 			ctx.clip();
-			ctx.beginPath();
-			band.forEach(function (uv, i) {
-				var p = project(uv[0], uv[1]);
-				if (i) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]);
-			});
-			ctx.closePath();
+			if (axis === 'x') region(tail, 0, head, 1, 24); else region(0, tail, 1, head, 24);
 			ctx.fillStyle = bandColor;
 			ctx.globalAlpha = bandAlpha;
 			ctx.fill();
@@ -538,15 +585,22 @@
 			}
 			ctx.restore();
 		}
-		// average raster-to-screen scale, from the quad's area (shoelace)
+		// average raster-to-screen scale, from the area inside a sampled outline (shoelace)
+		var ringPts = [];
+		for (var side = 0; side < 4; side++) {
+			for (var q = 0; q < 12; q++) {
+				var f = q / 12;
+				ringPts.push(side === 0 ? project(f, 0) : side === 1 ? project(1, f) : side === 2 ? project(1 - f, 1) : project(0, 1 - f));
+			}
+		}
 		var area = 0;
-		px.forEach(function (p, i) {
-			var q = px[(i + 1) % 4];
-			area += p[0] * q[1] - q[0] * p[1];
+		ringPts.forEach(function (p, i) {
+			var nq = ringPts[(i + 1) % ringPts.length];
+			area += p[0] * nq[1] - nq[0] * p[1];
 		});
 		var baseScale = Math.sqrt(Math.abs(area) / 2 / (RASTER_W * RASTER_H));
 
-		// each small mesh cell is nearly affine, so two affine triangles per cell track the perspective closely
+		// each small mesh cell is nearly affine, so two affine triangles per cell track the curve closely
 		function buildNameLayer() {
 			// reallocating a canvas is expensive, so only resize when the size really changed
 			if (nameLayer.width !== canvas.width || nameLayer.height !== canvas.height) {
@@ -556,8 +610,8 @@
 			var lc = nameLayer.getContext('2d');
 			lc.setTransform(1, 0, 0, 1, 0, 0);
 			lc.clearRect(0, 0, nameLayer.width, nameLayer.height);
-			// a coarse mesh keeps dragging smooth; the fine one is rebuilt on release
-			var NX = dragging ? 10 : 28, NY = dragging ? 2 : 6, S = NAME_SRC_SCALE;
+			// curves need a finer mesh than a corner pin; coarse keeps dragging smooth, fine is rebuilt on release
+			var NX = dragging ? 16 : 40, NY = dragging ? 4 : 10, S = NAME_SRC_SCALE;
 			var bw = nameBox.x1 - nameBox.x0, bh = nameBox.y1 - nameBox.y0;
 			for (var i = 0; i < NX; i++) {
 				for (var j = 0; j < NY; j++) {
@@ -576,7 +630,7 @@
 		}
 
 		// text uses the local linear approximation of the warp at its anchor,
-		// skipped where extreme perspective would smear it
+		// skipped where extreme warping would smear it
 		function label(str, x, y, align) {
 			var u = x / RASTER_W, v = y / RASTER_H, e = .001;
 			var p = project(u, v), pu = project(u + e, v), pv = project(u, v + e);
@@ -603,8 +657,8 @@
 
 		// big circle outline on the paper, under the grid: traced in raster space so it warps with the surface
 		ctx.beginPath();
-		for (var k = 0; k <= 96; k++) {
-			var ang = k / 96 * Math.PI * 2;
+		for (var k = 0; k <= 120; k++) {
+			var ang = k / 120 * Math.PI * 2;
 			var cp = project((RASTER_W / 2 + 168 * Math.cos(ang)) / RASTER_W, (RASTER_H / 2 + 168 * Math.sin(ang)) / RASTER_H);
 			if (k) ctx.lineTo(cp[0], cp[1]); else ctx.moveTo(cp[0], cp[1]);
 		}
@@ -657,12 +711,7 @@
 
 		// plate behind the name knocks out the grid
 		function plate() {
-			ctx.beginPath();
-			[[nameBox.x0, nameBox.y0], [nameBox.x1, nameBox.y0], [nameBox.x1, nameBox.y1], [nameBox.x0, nameBox.y1]].forEach(function (r, i) {
-				var p = project(r[0] / RASTER_W, r[1] / RASTER_H);
-				if (i) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]);
-			});
-			ctx.closePath();
+			region(nameBox.x0 / RASTER_W, nameBox.y0 / RASTER_H, nameBox.x1 / RASTER_W, nameBox.y1 / RASTER_H, 32);
 		}
 		// output and machine info sit under the wipes, so the wipes sweep across them
 		ctx.font = FONT;
@@ -699,7 +748,7 @@
 		label('4', 22, 334, 'left');
 
 		// the mapped name only needs rebuilding when the warp or canvas size changes, not every wipe frame
-		var key = nameVersion + '|' + dragging + '|' + canvas.width + 'x' + canvas.height + '|' + px.join(';');
+		var key = nameVersion + '|' + dragging + '|' + canvas.width + 'x' + canvas.height + '|' + JSON.stringify(shape);
 		if (key !== nameKey) {
 			buildNameLayer();
 			nameKey = key;
@@ -714,20 +763,63 @@
 		ctx.drawImage(nameLayer, 0, 0);
 		ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-		for (var i = 0; i < handles.length; i++) {
-			handles[i].style.transform = 'translate(' + px[i][0].toFixed(1) + 'px,' + px[i][1].toFixed(1) + 'px)';
-		}
+		// guide lines from each corner out to its tangent handles
+		ctx.lineWidth = 1;
+		ctx.strokeStyle = palette.ink;
+		ctx.globalAlpha = .45;
+		ctx.beginPath();
+		OWNED.forEach(function (owned, i) {
+			var cx = shape.c[i][0] * w, cy = shape.c[i][1] * hgt;
+			owned.forEach(function (o) {
+				var tp = shape.h[o[0]][o[1]];
+				ctx.moveTo(cx, cy);
+				ctx.lineTo(tp[0] * w, tp[1] * hgt);
+			});
+		});
+		ctx.stroke();
+		ctx.globalAlpha = 1;
+
+		handleEls.forEach(function (hd) {
+			var p = pointFor(hd);
+			hd.el.style.transform = 'translate(' + (p[0] * w).toFixed(1) + 'px,' + (p[1] * hgt).toFixed(1) + 'px)';
+		});
 	}
 
-	function moveCorner(i, x, y) {
-		var next = copy(corners);
-		next[i] = [clamp(x, .01, .99), clamp(y, .01, .99)];
-		if (!isConvex(next)) return;
-		corners = next;
+	// corner buttons carry data-corner; tangent buttons carry data-edge and data-index
+	var handleEls = Array.prototype.map.call(handles, function (el) {
+		var edge = el.getAttribute('data-edge');
+		return edge
+			? { el: el, edge: edge, index: +el.getAttribute('data-index') }
+			: { el: el, corner: +el.getAttribute('data-corner') };
+	});
+
+	function pointFor(hd) {
+		return hd.edge ? shape.h[hd.edge][hd.index] : shape.c[hd.corner];
+	}
+
+	function moveHandle(hd, x, y) {
+		var next = copyShape(shape);
+		x = clamp(x, .01, .99);
+		y = clamp(y, .01, .99);
+		if (hd.edge) {
+			next.h[hd.edge][hd.index] = [x, y];
+		} else {
+			var old = next.c[hd.corner];
+			var dx = x - old[0], dy = y - old[1];
+			next.c[hd.corner] = [x, y];
+			if (!isConvex(next.c)) return;
+			// a corner's tangent handles travel with it
+			OWNED[hd.corner].forEach(function (o) {
+				var p = next.h[o[0]][o[1]];
+				next.h[o[0]][o[1]] = [clamp(p[0] + dx, .01, .99), clamp(p[1] + dy, .01, .99)];
+			});
+		}
+		shape = next;
 		requestRender();
 	}
 
-	Array.prototype.forEach.call(handles, function (handle, i) {
+	handleEls.forEach(function (hd) {
+		var handle = hd.el;
 		handle.addEventListener('pointerdown', function (e) {
 			if (e.button !== 0) return;
 			e.preventDefault();
@@ -736,11 +828,11 @@
 			handle.classList.add('is-dragging');
 			dragging = true;
 			var rect = warp.getBoundingClientRect();
-			var start = corners[i].slice();
+			var start = pointFor(hd).slice();
 			var ox = e.clientX, oy = e.clientY;
 
 			function drag(ev) {
-				moveCorner(i, start[0] + (ev.clientX - ox) / rect.width, start[1] + (ev.clientY - oy) / rect.height);
+				moveHandle(hd, start[0] + (ev.clientX - ox) / rect.width, start[1] + (ev.clientY - oy) / rect.height);
 			}
 			function release() {
 				handle.classList.remove('is-dragging');
@@ -765,17 +857,18 @@
 			e.preventDefault();
 			cancelAnimationFrame(tween);
 			dragging = false;
-			moveCorner(i, corners[i][0] + delta[0], corners[i][1] + delta[1]);
+			var p = pointFor(hd);
+			moveHandle(hd, p[0] + delta[0], p[1] + delta[1]);
 		});
 	});
 
-	// glide the corners to a new random warp; the name uses its coarse mesh while moving, like a drag
+	// glide every control point to a new random warp; the name uses its coarse mesh while moving, like a drag
 	function reshuffle() {
 		cancelAnimationFrame(tween);
-		var from = copy(corners);
+		var from = copyShape(shape);
 		var to = randomShape(from);
 		if (reduced()) {
-			corners = to;
+			shape = to;
 			dragging = false;
 			requestRender();
 			return;
@@ -785,9 +878,7 @@
 		function step(now) {
 			var p = Math.min(1, (now - t0) / 700);
 			var k = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-			corners = from.map(function (c, i) {
-				return [c[0] + (to[i][0] - c[0]) * k, c[1] + (to[i][1] - c[1]) * k];
-			});
+			shape = lerpShape(from, to, k);
 			if (p < 1) {
 				tween = requestAnimationFrame(step);
 			} else {
@@ -850,16 +941,21 @@
 	var STORE_KEY = 'alecsparks-warp';
 	window.addEventListener('pagehide', function () {
 		try {
-			sessionStorage.setItem(STORE_KEY, JSON.stringify({ corners: corners }));
+			sessionStorage.setItem(STORE_KEY, JSON.stringify({ shape: shape }));
 		} catch (e) {}
 	});
+	function isPoint(p) { return Array.isArray(p) && p.length === 2 && isFinite(p[0]) && isFinite(p[1]); }
 	var restored = false;
 	try {
 		var saved = JSON.parse(sessionStorage.getItem(STORE_KEY) || 'null');
-		if (saved && Array.isArray(saved.corners) && saved.corners.length === 4 &&
-			saved.corners.every(function (c) { return Array.isArray(c) && isFinite(c[0]) && isFinite(c[1]); }) &&
-			isConvex(saved.corners)) {
-			corners = saved.corners;
+		if (saved && saved.shape && Array.isArray(saved.shape.c) && saved.shape.c.length === 4 && saved.shape.c.every(isPoint) &&
+			saved.shape.h && EDGES.every(function (e) { var hp = saved.shape.h[e[0]]; return Array.isArray(hp) && hp.length === 2 && hp.every(isPoint); }) &&
+			isConvex(saved.shape.c)) {
+			shape = saved.shape;
+			restored = true;
+		} else if (saved && Array.isArray(saved.corners) && saved.corners.length === 4 && saved.corners.every(isPoint) && isConvex(saved.corners)) {
+			// a warp saved before Bezier edges: start from its corners with straight edges
+			shape = { c: saved.corners, h: straightHandles(saved.corners) };
 			restored = true;
 		}
 	} catch (e) {}
