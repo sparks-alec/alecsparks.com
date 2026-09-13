@@ -1,0 +1,199 @@
+[
+	{
+		"name": "Eurydice",
+		"role": "Scenic Designer",
+		"type": "theater play",
+		"upcoming": true
+	},
+	{
+		"name": "The Stars",
+		"role": "Custom LED Electronics",
+		"type": "immersive art installation",
+		"upcoming": true
+	},
+	{
+		"name": "SNF Parkway",
+		"role": "Theater Consultant",
+		"type": "auditorium equipment renovation",
+		"upcoming": true
+	},
+	{
+		"name": "Nevermore",
+		"role": "Water Effects Engineer",
+		"type": "dance performance",
+		"upcoming": true
+	},
+	{
+		"name": "Voxel Stage Floor Projection",
+		"role": "Video System Engineer",
+		"type": "architectual video projection",
+		"year": "2024",
+		"description": "Design and engineering of a projection-mapped stage floor for The Voxel: eight projectors hung 25 feet above the roughly 50' × 35' deck, edge-blended into one image. Two Matrox QuadHead2Go units feeding all eight from a single Mac Studio running QLab 5. Used for previewing room layouts, seating, centerlines, and rigging, or taking in video over NDI.",
+		"links": [
+			{ "label": "Lab Note", "url": "https://voxel.org/technical/notes/lab/projection-stage" },
+			{ "label": "QLab Video", "url": "https://www.youtube.com/watch?v=GlQXtaIFR94" }
+		]
+	},
+	{
+		"name": "Voxel Website Redesign",
+		"role": "Designer & Developer",
+		"type": "website",
+		"year": "2026",
+		"description": "Redesign of The Voxel Theater’s website to better communicate upcoming shows and the archive of past events. Migration from Next.js to Kirby CMS running on PHP, preserving all existing links and archived content. Improved load times and stability.",
+		"links": [
+			{ "label": "Visit", "url": "https://voxel.org" }
+		],
+		"images": [
+			{ "src": "images/voxel-site/voxel-site-1.png", "width": 900, "height": 945, "alt": "The Voxel homepage with the upcoming Nevermore poster in front of The Stars", "credit": "voxel.org" },
+			{ "src": "images/voxel-site/voxel-site-2.png", "width": 1600, "height": 1038, "alt": "Archive page with a searchable grid of past shows and production photos", "credit": "voxel.org" },
+			{ "src": "images/voxel-site/voxel-site-3.png", "width": 1600, "height": 1162, "alt": "A past show page for The Luminous Dead with its description and production photo", "credit": "voxel.org" },
+			{ "src": "images/voxel-site/voxel-site-4.png", "width": 755, "height": 1600, "alt": "The Voxel homepage on a phone", "credit": "voxel.org" },
+			{ "src": "images/voxel-site/voxel-site-5.png", "width": 755, "height": 1600, "alt": "A past show page on a phone", "credit": "voxel.org" }
+		]
+	},
+	{
+		"name": "charmcity.theater",
+		"role": "Developer",
+		"type": "website",
+		"year": "2026",
+		"description": "Development of a single calendar of Baltimore theater, powered by an AI scraper gathering listings from dozens of local theater websites. Now published by The Voxel.",
+		"links": [
+			{ "label": "Visit", "url": "https://charmcity.theater/" }
+		]
+	},
+	{
+		"name": "Resonant Site",
+		"role": "Audio + Video Integrator",
+		"type": "installation",
+		"year": "2026",
+		"description": "Audio and video engineering and integration for Resonant Site, Collis Donadio’s immersive installation on industry and environment in Baltimore, at the Pikesville Armory. QLab and MadMapper driving 5 ceiling-mounted projectors mapping 20 scenic panels, plus 6 audio zones across a 10,000 square foot warehouse.",
+		"links": [
+			{ "label": "Resonant Site", "url": "https://arts.umd.edu/events/resonant-site-immersive-art-installation-pikesville-armory" },
+			{ "label": "Collis Donadio", "url": "https://www.collisdonadio.com/conflux" }
+		],
+		"images": [
+			{ "src": "images/resonant/resonant-1.jpg", "width": 1600, "height": 900, "alt": "Layered projection screens showing black-and-white footage of industrial ground in a dark space", "credit": "Courtesy Collis Donadio" },
+			{ "src": "images/resonant/resonant-2.jpg", "width": 1600, "height": 1067, "alt": "Hanging screens projected with close-up textures of shoreline and debris", "credit": "Courtesy Collis Donadio" },
+			{ "src": "images/resonant/resonant-3.jpg", "width": 1600, "height": 947, "alt": "Projected architectural details glowing on translucent screens", "credit": "Courtesy Collis Donadio" },
+			{ "src": "images/resonant/resonant-4.jpg", "width": 1600, "height": 900, "alt": "Screens projected with rows of apartment-block windows", "credit": "Courtesy Collis Donadio" }
+		]
+	},
+	{
+		"name": "Go Pilot",
+		"role": "Designer & Engineer",
+		"type": "QLab control, Eos control hardware",
+		"year": "2025",
+		"description": "Design and engineering of a hands-on programming surface for QLab and Eos with Team Sound, a collaborative team of hardware designers. Nine motorized faders, four clickable rotary encoders, twelve backlit keys, and a full-color touchscreen, all configurable, with OSC over Ethernet and MIDI over USB-C.",
+		"links": [
+			{ "label": "Go Pilot", "url": "https://www.teamsound.nyc/store/pilot" },
+			{ "label": "Team Sound", "url": "https://www.teamsound.nyc" }
+		]
+	},
+	{
+		"name": "Big Ass Snake(Plant)s On a Plane",
+		"role": "LED Integrator",
+		"type": "light art, installation",
+		"year": "2025",
+		"description": "LED integration for Phaan Howng’s installation at Inviting Light in Baltimore: larger-than-life, camouflage-patterned leaves growing out of the Charles Street Garage.",
+		"links": [
+			{ "label": "Inviting Light", "url": "https://invitinglight.org/meet-the-artists/artist-phaanhowng/" },
+			{ "label": "Phaan Howng", "url": "https://www.phaan.com/sculptures/view/10587555/1/10804399" }
+		],
+		"images": [
+			{ "src": "images/snakeplants/snakeplants-1.jpg", "width": 1600, "height": 907, "alt": "Giant glowing snake plant leaves stretching across the Charles Street Garage at night, lit blue and pink", "credit": "Photo: Side A Photo" },
+			{ "src": "images/snakeplants/snakeplants-2.jpg", "width": 1600, "height": 1067, "alt": "Head-on night view of the garage facade with the illuminated leaves above the entrance", "credit": "Photo: Side A Photo" },
+			{ "src": "images/snakeplants/snakeplants-3.jpg", "width": 1600, "height": 1067, "alt": "Close view of the patterned leaves glowing against the brick facade", "credit": "Photo: Side A Photo" },
+			{ "src": "images/snakeplants/snakeplants-4.jpg", "width": 1600, "height": 1067, "alt": "Street-level view of the installation on North Charles Street at night", "credit": "Photo: Side A Photo" }
+		]
+	},
+	{
+		"name": "OSC.fyi",
+		"role": "Creator",
+		"type": "web directory",
+		"badge": "Reference",
+		"year": "2024",
+		"description": "Quick links to the OSC documentation for lighting, sound, video, and automation gear. Shortcuts like <a href='https://osc.fyi/qlab'>osc.fyi/qlab</a> jump straight to a device’s dictionary.",
+		"links": [
+			{ "label": "Visit", "url": "https://www.osc.fyi" }
+		]
+	},
+	{
+		"name": "Macy’s Holiday Windows",
+		"role": "Media Server & Controls",
+		"type": "interactive window display",
+		"year": "2023",
+		"description": "QLab media server specification, programming, and custom controls for Macy’s first ever interactive holiday window display. Design and construction of secure custom hall-effect buttons outside the glass, triggering sensors inside by magnetism, and integration with complex custom animatronics by others and even a live karaoke system.",
+		"links": [
+			{ "label": "WindowsWear", "url": "https://www.windowswear.com/macys-unveiled-2023-holiday-windows-in-herald-square-featuring-tiptoe-the-reindeer/" }
+		],
+		"images": [
+			{ "src": "images/macys/macys-1.jpg", "width": 1600, "height": 1200, "alt": "Pink holiday window with animated characters under the Give Love theme", "credit": "Photo: Lyssy in the City" },
+			{ "src": "images/macys/macys-2.jpg", "width": 1600, "height": 1200, "alt": "Blue window with a polar bear among giant ornaments", "credit": "Photo: Lyssy in the City" },
+			{ "src": "images/macys/macys-3.jpg", "width": 1600, "height": 1200, "alt": "Gold window with brass horns and a reindeer", "credit": "Photo: Lyssy in the City" },
+			{ "src": "images/macys/macys-4.jpg", "width": 1600, "height": 1200, "alt": "Red window lined with toy soldiers", "credit": "Photo: Lyssy in the City" },
+			{ "src": "images/macys/macys-5.jpg", "width": 1600, "height": 1200, "alt": "Blue advent-calendar window with numbered doors", "credit": "Photo: Lyssy in the City" },
+			{ "src": "images/macys/macys-6.jpg", "width": 1600, "height": 1200, "alt": "Green window with a stage set and characters", "credit": "Photo: Lyssy in the City" }
+		]
+	},
+	{
+		"name": "Stage Blocks Co",
+		"role": "Founder",
+		"type": "shop",
+		"year": "2023",
+		"description": "Founding of a shop of components for building shows: ShowCase Pro, a macOS media server for 4K video, lossless audio, and lighting control; the Projector Yoke, hanging a projector like a lighting fixture; Slice4 and Slice6, turning one Mac display connection into four or six outputs; and DeckRack mounts for Stream Decks.",
+		"links": [
+			{ "label": "Visit", "url": "https://www.stageblocks.co" }
+		]
+	},
+	{
+		"name": "DeckRack",
+		"role": "Designer",
+		"type": "shop",
+		"year": "2023",
+		"description": "Design of a system of mounts for Elgato Stream Decks: powder-coated 16-gauge steel rack plates from 2U to 4U holding up to 128 buttons, plus desktop, wall, and Eurorack mounts. Extended by StreamPanel, setting Stream Decks into standard electrical boxes, including a PoE-powered model with a built-in network dock.",
+		"links": [
+			{ "label": "Visit", "url": "https://www.deckrack.net" }
+		]
+	},
+	{
+		"name": "The Voxel",
+		"role": "Technical Director",
+		"type": "blackbox R&D theater in Baltimore",
+		"year": "2020 - present",
+		"description": "Technical Director at The Voxel: a theater, incubator, and resource for performing artists in Baltimore. A 1946 movie theater reopened in 2020 as the teaching center and research lab of Figure 53, the company behind QLab, with residencies giving Baltimore artists space, time, and resources to make new work.",
+		"links": [
+			{ "label": "Visit", "url": "https://voxel.org" }
+		]
+	},
+	{
+		"name": "Stage Hacks",
+		"role": "Creator",
+		"type": "web directory",
+		"badge": "Reference",
+		"year": "2020",
+		"description": "Creation of a curated directory of tools for nerds who put on shows with a worldwide community of AVL nerds. Show control, MIDI and OSC utilities, networking, timers, video, sound, lighting, QLab add-ons, developer libraries, and physical hardware, both open source and commercial.",
+		"links": [
+			{ "label": "Visit", "url": "https://www.stagehacks.com" }
+		]
+	},
+	{
+		"name": "Cue View",
+		"role": "Co-developer",
+		"type": "app",
+		"year": "2021",
+		"description": "Co-development of a free Stage Hacks dashboard for everything in a show: live-updating status for QLab, ETC Eos consoles, Watchout, PJLink projectors, X32 and DiGiCo SD audio consoles, ATEM video mixers, Art-Net and sACN universes, and more. Automatic device discovery on the network and a configurable layout.",
+		"links": [
+			{ "label": "GitHub", "url": "https://github.com/stagehacks/Cue-View" }
+		]
+	},
+	{
+		"name": "Woolly Mammoth Theatre Company",
+		"role": "Technical Director",
+		"type": "DC theater company",
+		"year": "2017–2021",
+		"description": "Supervised the scene shop, light shop, and AV shop (though not all at the same time) at Woolly Mammoth Theatre Company, the Tony Award–winning Washington, DC company. Worked on dozens of productions and helped design a pivot to video in 2020.",
+		"links": [
+			{ "label": "Visit", "url": "https://www.woollymammoth.net/" }
+		]
+	}
+]

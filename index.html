@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Alec Sparks - Portfolio</title>
+	<meta name="description" content="Alec Sparks is a technical director in Baltimore making hardware and software for art and live events.">
+	<meta name="author" content="Alec Sparks">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Alec Sparks">
+	<meta property="og:description" content="Hardware and software for live events.">
+	<meta property="og:url" content="https://alecsparks.com/">
+	<meta name="theme-color" content="#fdfdfc" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#131313" media="(prefers-color-scheme: dark)">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;600&family=JetBrains+Mono:wght@500&family=Big+Shoulders+Display:wght@800&display=swap">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<a class="skip-link" href="#main-content">Skip to content</a>
+
+	<main id="main-content">
+		<h1 class="visually-hidden">Alec Sparks, Technical Director</h1>
+		<section class="section-about" id="about-panel">
+			<div class="stage-col">
+				<div class="gfx">
+					<div class="warp" role="group" aria-label="Projection corner-pin toy">
+						<canvas class="warp-canvas" aria-hidden="true"></canvas>
+						<button type="button" class="warp-handle" aria-label="Corner 1, top left"></button>
+						<button type="button" class="warp-handle" aria-label="Corner 2, top right"></button>
+						<button type="button" class="warp-handle" aria-label="Corner 3, bottom right"></button>
+						<button type="button" class="warp-handle" aria-label="Corner 4, bottom left"></button>
+					</div>
+				</div>
+			</div>
+
+			<div class="text">
+				<p>I make custom hardware and software that help people make art and put on live events.</p>
+				<p>I sell custom gear at <a href="https://www.stageblocks.co">Stage Blocks Co</a>, keep directories of resources for nerds who put on shows at <a href="https://www.stagehacks.com">Stage Hacks</a> and <a href="https://www.osc.fyi">OSC.fyi</a>, and help run <a href="https://voxel.org">The Voxel</a>, a theatrical R&amp;D center and a fantastic blackbox theater.</p>
+				<p>I take on occasional freelance and consulting work involving theatrical space design, custom hardware, video engineering, and show control. If you have a cool project, I’d love to <a href="mailto:sparks.alec@gmail.com">hear about it</a>.</p>
+				<p class="links">
+					<a rel="me" href="https://www.instagram.com/alecsparks">Instagram</a>
+					<a rel="me" href="https://bsky.app/profile/alecsparks.bsky.social">Bluesky</a>
+				</p>
+			</div>
+		</section>
+
+		<section class="section-index">
+			<ul>
+				<li class="head">
+					<div class="top">
+						<div class="client">Project</div>
+						<div class="role">Role</div>
+						<div class="type">Type</div>
+						<div class="year">Year</div>
+					</div>
+				</li>
+				<!-- project rows are built from projects.json by script.js -->
+			</ul>
+		</section>
+	</main>
+
+	<script src="script.js"></script>
+</body>
+</html>
