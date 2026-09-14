@@ -94,7 +94,7 @@
 		"role": "LED Integrator",
 		"type": "light art, installation",
 		"year": "2025",
-		"description": "LED integration for Phaan Howng’s installation at Inviting Light in Baltimore: larger-than-life, camouflage-patterned leaves growing out of the Charles Street Garage.",
+		"description": "LED integration for Phaan Howng’s installation at Inviting Light in Baltimore: larger-than-life, camouflage-patterned leaves growing out of the Charles Street Garage. Approximately 1500 LED pixels using Advatek pixel drivers.",
 		"links": [
 			{ "label": "Inviting Light", "url": "https://invitinglight.org/meet-the-artists/artist-phaanhowng/" },
 			{ "label": "Phaan Howng", "url": "https://www.phaan.com/sculptures/view/10587555/1/10804399" }
