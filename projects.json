@@ -19,14 +19,31 @@
 	},
 	{
 		"name": "Nevermore",
-		"role": "Water Effects Engineer",
+		"role": "Water Effects Designer",
 		"type": "dance performance",
-		"upcoming": true
+		"year": "2026",
+		"description": "Custom effects for Orange Grove Dance's Nevermore, a dance performance at The Voxel inspired by Edgar Allan Poe. Water effects included a 30ft x 30ft ankle-deep pool, several different types of rainstorms, rain curtains, projection illusions, and ultrasonic mist fog effects. All water was heated for performer comfort. Also developed custom ETC Source Four right angle mirror adapters to accommodate unique clearances.",
+		"credits": [
+			{ "role": "Lighting Design", "name": "Peter Leibold", "url": "https://www.peterleibold.com" },
+			{ "role": "Sound Design", "name": "Dylan Glatthorn", "url": "https://dylanglatthorn.com" }
+		],
+		"images": [
+			{ "src": "images/nevermore/nevermore-1.jpg", "width": 1600, "height": 1066, "alt": "A dancer with arms raised under a curtain of red-lit rain", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-2.jpg", "width": 1600, "height": 1067, "alt": "A performer standing in water as beams of light fan up through falling rain", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-3.jpg", "width": 1600, "height": 1066, "alt": "Two dancers in long coats lunging through spray and standing water", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-4.jpg", "width": 1600, "height": 1066, "alt": "A dancer in blue light throwing their head back as water splashes around them", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-5.jpg", "width": 1066, "height": 1600, "alt": "A performer in a long coat holding a glass up into a stream of falling water", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-6.jpg", "width": 1600, "height": 1066, "alt": "A dancer in a pale gown spinning in a spotlight with water spraying at their feet", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-7.jpg", "width": 1600, "height": 1066, "alt": "A dancer kicking through red-lit water, sending up a burst of spray", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-8.jpg", "width": 1600, "height": 1066, "alt": "A dancer bent forward with wet hair beneath dense red rain", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-9.jpg", "width": 1600, "height": 1066, "alt": "A fanged figure snarling through an empty picture frame held up like a mirror", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-10.jpg", "width": 1600, "height": 1066, "alt": "A man in a coat looking down at a figure lying in shallow water among small lights", "credit": "Photo: Chris Ashworth" }
+		]
 	},
 	{
 		"name": "Voxel Stage Floor Projection",
 		"role": "Video System Engineer",
-		"type": "architectual video projection",
+		"type": "architectural video projection",
 		"year": "2024",
 		"description": "Design and engineering of a projection-mapped stage floor for The Voxel: eight projectors hung 25 feet above the roughly 50' × 35' deck, edge-blended into one image. Two Matrox QuadHead2Go units feeding all eight from a single Mac Studio running QLab 5. Used for previewing room layouts, seating, centerlines, and rigging, or taking in video over NDI.",
 		"links": [

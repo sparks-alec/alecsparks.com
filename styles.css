@@ -319,6 +319,17 @@ a:focus-visible, button:focus-visible {
 	transition: text-decoration-color var(--motion-fast) var(--ease-out);
 }
 .section-index .detail .about a:hover { text-decoration-color: currentColor; }
+/* role/name credit pairs under the description */
+.section-index .detail .credits {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 4px 16px;
+	margin: 16px 0 0;
+}
+.section-index .detail .credits dd {
+	margin: 0;
+	color: var(--active-text);
+}
 .section-index .detail .command {
 	display: flex;
 	flex-wrap: wrap;
@@ -465,7 +476,8 @@ a:focus-visible, button:focus-visible {
 		display: block;
 		padding-bottom: 24px;
 	}
-	.section-index .detail .about p {
+	.section-index .detail .about p,
+	.section-index .detail .credits {
 		font-size: 18px;
 		line-height: 24px;
 	}

@@ -224,6 +224,24 @@
 			a.rel = 'noopener';
 		});
 		about.appendChild(desc);
+		// optional collaborator credits under the description, as role/name pairs
+		if (p.credits && p.credits.length) {
+			var credits = el('dl', 'credits');
+			p.credits.forEach(function (c) {
+				var name = el('dd');
+				if (c.url) {
+					var link = el('a', null, c.name);
+					link.href = c.url;
+					link.target = '_blank';
+					link.rel = 'noopener';
+					name.appendChild(link);
+				} else {
+					name.textContent = c.name;
+				}
+				credits.append(el('dt', null, c.role), name);
+			});
+			about.appendChild(credits);
+		}
 		var command = el('div', 'command');
 		(p.links || []).forEach(function (link, i) {
 			var a = el('a', i === 0 ? 'visit' : 'visit alt', link.label + ' ↗');
