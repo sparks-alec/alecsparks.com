@@ -33,14 +33,16 @@
 		"images": [
 			{ "src": "images/nevermore/nevermore-1.jpg", "width": 1600, "height": 1066, "alt": "A dancer with arms raised under a curtain of red-lit rain", "credit": "Photo: Chris Ashworth" },
 			{ "src": "images/nevermore/nevermore-2.jpg", "width": 1600, "height": 1067, "alt": "A performer standing in water as beams of light fan up through falling rain", "credit": "Photo: Chris Ashworth" },
-			{ "src": "images/nevermore/nevermore-3.jpg", "width": 1600, "height": 1066, "alt": "Two dancers in long coats lunging through spray and standing water", "credit": "Photo: Chris Ashworth" },
-			{ "src": "images/nevermore/nevermore-4.jpg", "width": 1600, "height": 1066, "alt": "A dancer in blue light throwing their head back as water splashes around them", "credit": "Photo: Chris Ashworth" },
-			{ "src": "images/nevermore/nevermore-5.jpg", "width": 1066, "height": 1600, "alt": "A performer in a long coat holding a glass up into a stream of falling water", "credit": "Photo: Chris Ashworth" },
-			{ "src": "images/nevermore/nevermore-6.jpg", "width": 1600, "height": 1066, "alt": "A dancer in a pale gown spinning in a spotlight with water spraying at their feet", "credit": "Photo: Chris Ashworth" },
-			{ "src": "images/nevermore/nevermore-7.jpg", "width": 1600, "height": 1066, "alt": "A dancer kicking through red-lit water, sending up a burst of spray", "credit": "Photo: Chris Ashworth" },
-			{ "src": "images/nevermore/nevermore-8.jpg", "width": 1600, "height": 1066, "alt": "A dancer bent forward with wet hair beneath dense red rain", "credit": "Photo: Chris Ashworth" },
-			{ "src": "images/nevermore/nevermore-9.jpg", "width": 1600, "height": 1066, "alt": "A fanged figure snarling through an empty picture frame held up like a mirror", "credit": "Photo: Chris Ashworth" },
-			{ "src": "images/nevermore/nevermore-10.jpg", "width": 1600, "height": 1066, "alt": "A man in a coat looking down at a figure lying in shallow water among small lights", "credit": "Photo: Chris Ashworth" }
+			{ "src": "images/nevermore/nevermore-3.jpg", "width": 1600, "height": 1200, "alt": "Wide view of the stage in blue light, a dancer spinning in standing water beneath a cone of falling rain", "credit": "" },
+			{ "src": "images/nevermore/nevermore-4.jpg", "width": 1600, "height": 1066, "alt": "Two dancers in long coats lunging through spray and standing water", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-5.jpg", "width": 1600, "height": 1066, "alt": "A dancer in blue light throwing their head back as water splashes around them", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-6.jpg", "width": 1066, "height": 1600, "alt": "A performer in a long coat holding a glass up into a stream of falling water", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-7.jpg", "width": 1600, "height": 1066, "alt": "A dancer in a pale gown spinning in a spotlight with water spraying at their feet", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-8.jpg", "width": 1600, "height": 1200, "alt": "Wide view of the stage wrapped in low fog, two dancers grappling in the water under pale beams", "credit": "" },
+			{ "src": "images/nevermore/nevermore-9.jpg", "width": 1600, "height": 1066, "alt": "A dancer kicking through red-lit water, sending up a burst of spray", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-10.jpg", "width": 1600, "height": 1066, "alt": "A dancer bent forward with wet hair beneath dense red rain", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-11.jpg", "width": 1600, "height": 1066, "alt": "A fanged figure snarling through an empty picture frame held up like a mirror", "credit": "Photo: Chris Ashworth" },
+			{ "src": "images/nevermore/nevermore-12.jpg", "width": 1600, "height": 1066, "alt": "A man in a coat looking down at a figure lying in shallow water among small lights", "credit": "Photo: Chris Ashworth" }
 		]
 	},
 	{
