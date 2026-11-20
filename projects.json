@@ -16,6 +16,12 @@
 		],
 		"links": [
 			{ "label": "The Voxel", "url": "https://voxel.org/events/the-stars-2026" }
+		],
+		"images": [
+			{ "src": "images/the-stars/the-stars-1.gif", "width": 960, "height": 540, "alt": "Streaks of red light trailing through the LED volume", "credit": "Clips from internal testing" },
+			{ "src": "images/the-stars/the-stars-2.gif", "width": 960, "height": 540, "alt": "The LED volume flashing from green to purple to white, then a purple sphere", "credit": "Clips from internal testing" },
+			{ "src": "images/the-stars/the-stars-3.gif", "width": 960, "height": 540, "alt": "A small, dim cluster of cyan LEDs blinking in the dark", "credit": "Clips from internal testing" },
+			{ "src": "images/the-stars/the-stars-4.gif", "width": 960, "height": 540, "alt": "Waves, domes, and blocks of light taking shape inside the LED volume", "credit": "Clips from internal testing" }
 		]
 	},
 	{
