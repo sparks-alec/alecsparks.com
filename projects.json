@@ -7,9 +7,16 @@
 	},
 	{
 		"name": "The Stars",
-		"role": "Custom LED Electronics",
+		"role": "Custom LED Volume Engineer",
 		"type": "immersive art installation",
-		"upcoming": true
+		"year": "2026",
+		"description": "Design and engineering of a 48ft x 30ft x 20ft RGB LED volume for Andrew Schneider’s <cite>The Stars</cite>, an immersive light and sound installation at <a href='https://voxel.org'>The Voxel</a>. Specifications included instant DMX response, precise low-brightness control even in a pitch-black room, the texture and color of the wire, and the apparent size of each light source. Custom LED driver PCBs were developed with 30-bit brightness control across 32 DMX universes. Built by a Baltimore-based team using more than 11 miles of wire.",
+		"credits": [
+			{ "role": "Written, Directed, and Programmed By", "name": "Andrew Schneider", "url": "https://andrewjs.com" }
+		],
+		"links": [
+			{ "label": "The Voxel", "url": "https://voxel.org/events/the-stars-2026" }
+		]
 	},
 	{
 		"name": "SNF Parkway",
