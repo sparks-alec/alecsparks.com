@@ -108,6 +108,7 @@
 		],
 		"images": [
 			{ "src": "images/resonant/resonant-1.jpg", "width": 1600, "height": 900, "alt": "Layered projection screens showing black-and-white footage of industrial ground in a dark space", "credit": "Courtesy Collis Donadio" },
+			{ "src": "images/resonant/resonant-5.gif", "width": 800, "height": 450, "alt": "Moving through a dark warehouse of hanging screens projected with black-and-white terrain, two visitors sitting on the floor" },
 			{ "src": "images/resonant/resonant-2.jpg", "width": 1600, "height": 1067, "alt": "Hanging screens projected with close-up textures of shoreline and debris", "credit": "Courtesy Collis Donadio" },
 			{ "src": "images/resonant/resonant-3.jpg", "width": 1600, "height": 947, "alt": "Projected architectural details glowing on translucent screens", "credit": "Courtesy Collis Donadio" },
 			{ "src": "images/resonant/resonant-4.jpg", "width": 1600, "height": 900, "alt": "Screens projected with rows of apartment-block windows", "credit": "Courtesy Collis Donadio" }
