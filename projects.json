@@ -229,6 +229,17 @@
 		"description": "Supervised the scene shop, light shop, and AV shop (though not all at the same time) at Woolly Mammoth Theatre Company, the Tony Award–winning Washington, DC company. Worked on dozens of productions and helped design a pivot to video in 2020.",
 		"links": [
 			{ "label": "Visit", "url": "https://www.woollymammoth.net/" }
+		],
+		"images": [
+			{ "src": "images/woolly/woolly-7.jpg", "width": 1600, "height": 1066, "alt": "Actors dancing in the living room of the home set while large shadow figures loom on the walls above" },
+			{ "src": "images/woolly/woolly-1.jpg", "width": 1600, "height": 1066, "alt": "A box of ribbed translucent panels glowing under a grid of fluorescent fixtures, seen from the audience seats" },
+			{ "src": "images/woolly/woolly-10.jpg", "width": 1600, "height": 1066, "alt": "A stage seen from above, its video wall showing an American flag strung with barbed wire and stars projected across the floor" },
+			{ "src": "images/woolly/woolly-4.jpg", "width": 1600, "height": 1066, "alt": "A copy of Botticelli’s The Birth of Venus on an easel, lit on a dark marble-tiled stage under a gilded cornice" },
+			{ "src": "images/woolly/woolly-2.jpg", "width": 1600, "height": 1066, "alt": "An office set with desks and frosted-glass walls, the translucent box flown above it" },
+			{ "src": "images/woolly/woolly-9.jpg", "width": 1600, "height": 1066, "alt": "An actor seated on a table before a wall of video panels showing police footage, folding chairs lining the stage" },
+			{ "src": "images/woolly/woolly-6.jpg", "width": 1600, "height": 1066, "alt": "A two-story family home set in blue light, wrecked with scattered papers and stuffing, projected branches across its walls" },
+			{ "src": "images/woolly/woolly-3.jpg", "width": 1600, "height": 1066, "alt": "Unpainted plywood scenery walls standing and flying onstage, the house visible through their doorways" },
+			{ "src": "images/woolly/woolly-8.jpg", "width": 1066, "height": 1600, "alt": "The home set seen from high in the audience, with the lighting grid overhead" }
 		]
 	}
 ]
